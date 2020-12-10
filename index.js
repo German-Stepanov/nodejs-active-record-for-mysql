@@ -3,12 +3,12 @@ var ActiveRecord = function (config) {
 	var self = this;
 	
 	config = config || {};
-	this.table 			= config.table || '';			//Название таблицы
-	this.idkey 			= config.idkey || '';			//Ключевое поле
-	this.table_nick 	= config.table_nick || '';		//Ник таблицы
-	this.engine			= config.engine || 'InnoDB';	//Движок
-	this.charset		= config.charset || 'utf8';		//Кодироква
-	this.fields 		= config.fields	 || [];			//Структура полей таблицы
+	this.table 		= config.table || '';		//Название таблицы
+	this.idkey 		= config.idkey || '';		//Ключевое поле
+	this.table_nick 	= config.table_nick || '';	//Ник таблицы
+	this.engine		= config.engine || 'InnoDB';	//Движок
+	this.charset		= config.charset || 'utf8';	//Кодироква
+	this.fields 		= config.fields	 || [];		//Структура полей таблицы
 
 	this.query = {
 		binary_data : {},
@@ -183,7 +183,7 @@ var ActiveRecord = function (config) {
 	this.table 	= 'users',
 	this.idkey	= 'user_id',
 	this.engine	= 'InnoDB',
-	this.charset= 'utf8',
+	this.charset	= 'utf8',
 	this.fields	=
 	[
 		{
@@ -249,9 +249,9 @@ var ActiveRecord = function (config) {
 /*
 	var params = {
 		data 	: {
-			user_name		: 'Александр',
-			user_family		: 'Иванов',
-			user_age		: 40,
+			user_name	: 'Александр',
+			user_family	: 'Иванов',
+			user_age	: 40,
 			//Добавление бинарного файла
 			user_passport  	: require('fs').readFileSync(userfiles[0]['tmp']),
 			user_photo  	: require('fs').readFileSync(userfiles[1]['tmp']),
@@ -283,8 +283,8 @@ var ActiveRecord = function (config) {
 			user_family	: 'Иванов',
 			'user_age >'	: 25
 		}, 
-		in		: {
-			user_id : [1,2,3]
+		in	: {
+			user_id 	: [1,2,3]
 		},
 	};
 	var query = this.query_delete(params);
@@ -320,7 +320,7 @@ var ActiveRecord = function (config) {
 			user_status		: 'Старина'
 		}
 		where	: {
-			user_family			: 'Иванов',
+			user_family		: 'Иванов',
 			'user_status !='	: 'Шеф',
 		}, 
 		in		: {
@@ -349,10 +349,10 @@ var ActiveRecord = function (config) {
 			}
 		}
 		where	: {
-			user_family			: 'Иванов',
+			user_family		: 'Иванов',
 			'user_status !='	: 'Шеф',
 		}, 
-		in		: {
+		in	: {
 			user_age 		: [40,45,50]
 		}, 
 	};
@@ -394,12 +394,12 @@ var ActiveRecord = function (config) {
 	params = {
 		fields 			: ['user_id', 'user_name', 'user_family'],  //[] - все поля строки
 		join 	: {
-			'cities' 		: 'users.user_city_id = cities.city_id',
-			'statuses' 		: 'users.user_status_id = statuses.status_id',
+			'cities' 	: 'users.user_city_id = cities.city_id',
+			'statuses' 	: 'users.user_status_id = statuses.status_id',
 		},
 		where	: {
 			status_name	: 'Рабочий',
-			'user_age >': 45
+			'user_age >'	: 45
 		}, 
 		like	: {
 			user_family	: '%Ива',
@@ -410,7 +410,7 @@ var ActiveRecord = function (config) {
 		}, 
 		group 	: ['user_family', 'user_name'],
 		order   : {
-			user_family : 'asc',
+			user_family 	: 'asc',
 			user_age 	: 'desc'
 		},
 		limit	: 10,
