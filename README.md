@@ -94,13 +94,13 @@ SELECT * FROM users WHERE `user_id`='1' LIMIT  1;
 var data = {
 	fields	: ['user_id', 'user_name', 'user_family'],
 	where	: {
-		user_family			: 'Иванов',
+		user_family		: 'Иванов',
 		'user_name !='		: 'Петр',
 		'OR user_name !='	: 'Вася',
 	},
 	in		: {
 		'user_id'		: [1,2,3],
-		'user_profi'	: ['Сантехник', 'Электрик', 'Дворник']
+		'user_profi'		: ['Сантехник', 'Электрик', 'Дворник']
 	},
 };
 model_users.query_select(data)
@@ -146,8 +146,8 @@ INSERT INTO users SET `user_family`='Иванов', `user_name`='Петр';
 ЗАПРОС ДОБАВЛЕНИЯ ДВОИЧНЫХ ДАННЫХ ИЗ ФАЙЛА (РЕДКО ИСПОЛЬЗУЕТСЯ)
 var data = {
 	data	: {
-		user_family		: 'Иванов',
-		user_name		: 'Петр',
+		user_family	: 'Иванов',
+		user_name	: 'Петр',
 		user_passport	: require('fs').readFileSync('./uploads/passport.jpg'),
 	}
 };
@@ -167,7 +167,7 @@ var data = {
 		user_family	: 'Петров',
 		user_name	: 'Иван',
 	},
-	in		: {
+	in	: {
 		user_id		: [1,2,3],
 	},
 	like	: {
@@ -184,12 +184,12 @@ UPDATE users SET `user_family`='Иванов', `user_name`='Петр' WHERE `use
 ЗАПРОС ОБНОВЛЕНИЯ ДВОИЧНЫХ ДАННЫХ ИЗ ФАЙЛА (РЕДКО ИСПОЛЬЗУЕТСЯ)
 var data = {
 	data	: {
-		user_family		: 'Иванов',
-		user_name		: 'Петр',
+		user_family	: 'Иванов',
+		user_name	: 'Петр',
 		user_passport	: require('fs').readFileSync('./uploads/passport.jpg'),
 	},
-	in		: {
-		user_id			: [1,2,3],
+	in	: {
+		user_id		: [1,2,3],
 	},
 };
 model_users.query_update(data));
@@ -207,12 +207,12 @@ var data = {
 					'A 01'		: 'Инженер-электрик',
 					'B 11 3'	: 'Слесарь-сантехник 3 категории',
 					'A 02'		: 'Инженер-конструктор',
-					'С'			: 'Разнорабочий',
+					'С'		: 'Разнорабочий',
 				},
 			},
 		}
 	},
-	in		: {
+	in	: {
 		user_id		: [1,2,3],
 	},
 };
@@ -226,9 +226,9 @@ UPDATE users SET `user_profi` = CASE `user_code` WHEN 'A 01' THEN 'Инжене�
 var data = {
 	where	: {
 		user_family	: 'Иванов',
-		'user_age >': 25
+		'user_age >'	: 25
 	}, 
-	in		: {
+	in	: {
 		user_id		: [1,2,3]
 	},
 };
