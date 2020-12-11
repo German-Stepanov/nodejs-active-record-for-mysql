@@ -1,4 +1,4 @@
-# nodejs-active_record-for-mysql
+# nodejs-active-record-for-mysql
 Динамическое создание запросов в базу данных MySQL для nodejs
 ```HTML+PHP
 Используется для динамического формирования наиболее популярных запросов в БД MySQL
