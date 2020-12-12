@@ -3,10 +3,12 @@
   "version": "1.0.2",
   "description": "MySQL active-record query builder for nodejs",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/German-Stepanov/nodejs-active-record-for-mysql.git"
+    "url": "https://github.com/German-Stepanov/nodejs-active-record-for-mysql.git"
   },
   "keywords": [
     "mysql",
@@ -14,7 +16,7 @@
     "query",
     "builder"
   ],
-  "author": "german stepanov",
+  "author": "German Stepanov",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/German-Stepanov/nodejs-active-record-for-mysql/issues"
