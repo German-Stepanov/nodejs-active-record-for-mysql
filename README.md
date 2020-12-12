@@ -162,6 +162,7 @@ var data = {
 	}
 };
 model_users.query_insert(data));
+```
 ```MYSQL
 INSERT INTO users SET `user_family`='Иванов', `user_name`='Петр';
 ```
@@ -177,6 +178,7 @@ var data = {
 	}
 };
 model_users.query_insert(data));
+```
 ```MYSQL
 INSERT INTO users SET `user_family`='Иванов', `user_name`='Петр', ?;
 ```
@@ -202,6 +204,7 @@ var data = {
 	},
 };
 model_users.query_update(data));
+```
 ```MYSQL
 UPDATE users SET `user_family`='Иванов', `user_name`='Петр' 
 WHERE `user_family`='Петров' AND `user_name`='Иван' AND `user_id` 
