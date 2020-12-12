@@ -45,12 +45,13 @@ var model_users = new (require('active-record-for-mysql'))({
 ```
 ## Примеры использования:
 
+
 ### ЗАПРОС СОЗДАНИЯ ТАБЛИЦЫ
 ```JS
 model_users.query_create();
 ```
 ### Возвращает строку
-```
+```MYSQL
 CREATE TABLE IF NOT EXISTS `users` (
 `user_id` int(11) NOT NULL AUTO_INCREMENT,
 `user_name` varchar(100) NOT NULL,`user_family` varchar(100) NOT NULL,
@@ -59,11 +60,11 @@ PRIMARY KEY (`user_id`)) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 ```
 
 
-###ЗАПРОС УДАЛЕНИЯ ТАБЛИЦЫ
+### ЗАПРОС УДАЛЕНИЯ ТАБЛИЦЫ
 ```JS
 model_users.query_drop();
 ```
-###Возвращает строку
+### Возвращает строку
 ```
 DROP TABLE IF EXISTS `users`;
 ```
