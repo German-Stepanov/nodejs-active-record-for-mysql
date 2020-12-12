@@ -1,6 +1,6 @@
 # nodejs-active-record-for-mysql
 Динамическое создание запросов в базу данных MySQL для nodejs
-```HTML+PHP
+```
 Используется для динамического формирования наиболее популярных запросов в БД MySQL
 	CREATE	- создание таблицы
 	DROP	- удаление таблицы
@@ -8,8 +8,9 @@
 	UPDATE	- обновление записей
 	DELETE	- удаление записей
 	SELECT	- получение записей
-	
-Пример инициализации:
+```
+## Пример подключения
+```JS
 var model_users = new (require('active-record-for-mysql'))({
 	table 		: 'users';
 	idkey 		: 'user_id';
@@ -41,42 +42,58 @@ var model_users = new (require('active-record-for-mysql'))({
 		}
 	]
 });
+```
+## Примеры использования:
 
-Примеры использования:
-
-ЗАПРОС СОЗДАНИЯ ТАБЛИЦЫ
+### ЗАПРОС СОЗДАНИЯ ТАБЛИЦЫ
+```JS
 model_users.query_create();
-Возвращает строку
------------------
-CREATE TABLE IF NOT EXISTS `users` (`user_id` int(11) NOT NULL AUTO_INCREMENT,`user_name` varchar(100) NOT NULL,`user_family` varchar(100) NOT NULL,`user_city_id` int(11) NOT NULL,PRIMARY KEY (`user_id`)) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
------------------
+```
+### Возвращает строку
+```
+CREATE TABLE IF NOT EXISTS `users` (
+`user_id` int(11) NOT NULL AUTO_INCREMENT,
+`user_name` varchar(100) NOT NULL,`user_family` varchar(100) NOT NULL,
+`user_city_id` int(11) NOT NULL,
+PRIMARY KEY (`user_id`)) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+```
 
-ЗАПРОС УДАЛЕНИЯ ТАБЛИЦЫ
+
+###ЗАПРОС УДАЛЕНИЯ ТАБЛИЦЫ
+```JS
 model_users.query_drop();
-Возвращает строку
------------------
+```
+###Возвращает строку
+```
 DROP TABLE IF EXISTS `users`;
------------------
+```
 
-ЗАПРОС ВСЕХ СТРОК СО ВСЕМИ ПОЛЯМИ
+###ЗАПРОС ВСЕХ СТРОК СО ВСЕМИ ПОЛЯМИ
+```JS
 var data = {};
 model_users.query_select(data);
-Возвращает строку
------------------
+```
+###Возвращает строку
+```
 SELECT * FROM users;
------------------
+```
 
-ЗАПРОС ВСЕХ СТРОК С ПЕРЕЧИСЛЕННЫМИ ПОЛЯМИ
+
+###ЗАПРОС ВСЕХ СТРОК С ПЕРЕЧИСЛЕННЫМИ ПОЛЯМИ
+```JS
 var data = {
 	fields : ['user_id', 'user_name', 'user_family']
 };
 model_users.query_select(data));
-Возвращает строку
------------------
+```
+###Возвращает строку
+```
 SELECT `user_id`, `user_name`, `user_family` FROM users;
------------------
+```
 
-ЗАПРОС ОДНОЙ СТРОКИ С ЗАДАННЫМ ID
+
+###ЗАПРОС ОДНОЙ СТРОКИ С ЗАДАННЫМ ID
+```JS
 var data = {
 	fields 	: [],
 	where 	: {
@@ -85,12 +102,15 @@ var data = {
 	limit 	: 1
 };
 model_users.query_select(data)
-Возвращает строку
------------------
+```
+###Возвращает строку
+```
 SELECT * FROM users WHERE `user_id`='1' LIMIT  1;
------------------
+```
 
-ЗАПРОС СТРОК НА УСЛОВИЯХ WHERE И IN
+
+###ЗАПРОС СТРОК НА УСЛОВИЯХ WHERE И IN
+```JS
 var data = {
 	fields	: ['user_id', 'user_name', 'user_family'],
 	where	: {
@@ -104,12 +124,17 @@ var data = {
 	},
 };
 model_users.query_select(data)
-Возвращает строку
------------------
-SELECT `user_id`, `user_name`, `user_family` FROM users WHERE `user_family`='Иванов' AND `user_name`!='Петр' OR `user_name`!='Вася' AND `user_id` IN ('1', '2', '3') AND `user_profi` IN ('Сантехник', 'Электрик', 'Дворник');
------------------
+```
+###Возвращает строку
+```
+SELECT `user_id`, `user_name`, `user_family` FROM users 
+WHERE `user_family`='Иванов' AND `user_name`!='Петр' OR `user_name`!='Вася' 
+AND `user_id` IN ('1', '2', '3') AND `user_profi` IN ('Сантехник', 'Электрик', 'Дворник');
+```
 
-ЗАПРОС СТРАНИЦЫ СТРОК СГРУППИРОВАННЫХ GROUP НА УСЛОВИЯХ LIKE С СОРТИРОВКОЙ
+
+###ЗАПРОС СТРАНИЦЫ СТРОК СГРУППИРОВАННЫХ GROUP НА УСЛОВИЯХ LIKE С СОРТИРОВКОЙ
+```JS
 var data = {
 	fields	: ['user_name', 'user_family'],
 	group	: ['user_name', 'user_family'],
@@ -125,12 +150,17 @@ var data = {
 	offset	: 5,
 };
 model_users.query_select(data));
-Возвращает строку
------------------
-SELECT `user_name`, `user_family` FROM users WHERE `user_family` LIKE '%Ива%' AND `user_name` LIKE 'etr%' GROUP BY user_name, user_family ORDER BY `user_family` ASC, `user_age` DESC LIMIT 5,  10;
------------------
+```
+###Возвращает строку
+```
+SELECT `user_name`, `user_family` FROM users 
+WHERE `user_family` LIKE '%Ива%' AND `user_name` LIKE 'etr%' 
+GROUP BY user_name, user_family ORDER BY `user_family` ASC, `user_age` DESC LIMIT 5,  10;
+```
 
-ЗАПРОС ДОБАВЛЕНИЯ СТРОКИ
+
+###ЗАПРОС ДОБАВЛЕНИЯ СТРОКИ
+```JS
 var data = {
 	data	: {
 		user_family	: 'Иванов',
@@ -138,12 +168,14 @@ var data = {
 	}
 };
 model_users.query_insert(data));
-Возвращает строку
------------------
+###Возвращает строку
+```
 INSERT INTO users SET `user_family`='Иванов', `user_name`='Петр';
------------------
+```
 
-ЗАПРОС ДОБАВЛЕНИЯ ДВОИЧНЫХ ДАННЫХ ИЗ ФАЙЛА (РЕДКО ИСПОЛЬЗУЕТСЯ)
+
+###ЗАПРОС ДОБАВЛЕНИЯ ДВОИЧНЫХ ДАННЫХ ИЗ ФАЙЛА (РЕДКО ИСПОЛЬЗУЕТСЯ)
+```JS
 var data = {
 	data	: {
 		user_family	: 'Иванов',
@@ -152,12 +184,14 @@ var data = {
 	}
 };
 model_users.query_insert(data));
-Возвращает строку
------------------
+###Возвращает строку
+```
 INSERT INTO users SET `user_family`='Иванов', `user_name`='Петр', ?;
------------------
+```
 
-ЗАПРОС ОБНОВЛЕНИЯ СТРОК НА УСЛОВИЯХ WHERE, IN, LIKE
+
+###ЗАПРОС ОБНОВЛЕНИЯ СТРОК НА УСЛОВИЯХ WHERE, IN, LIKE
+```JS
 var data = {
 	data	: {
 		user_family	: 'Иванов',
@@ -176,12 +210,17 @@ var data = {
 	},
 };
 model_users.query_update(data));
-Возвращает строку
------------------
-UPDATE users SET `user_family`='Иванов', `user_name`='Петр' WHERE `user_family`='Петров' AND `user_name`='Иван' AND `user_id` IN ('1', '2', '3') AND `user_family` LIKE '%Ива%' AND `user_name` LIKE 'etr%';
------------------
+```
+###Возвращает строку
+```
+UPDATE users SET `user_family`='Иванов', `user_name`='Петр' 
+WHERE `user_family`='Петров' AND `user_name`='Иван' AND `user_id` 
+IN ('1', '2', '3') AND `user_family` LIKE '%Ива%' AND `user_name` LIKE 'etr%';
+```
 
-ЗАПРОС ОБНОВЛЕНИЯ ДВОИЧНЫХ ДАННЫХ ИЗ ФАЙЛА (РЕДКО ИСПОЛЬЗУЕТСЯ)
+
+###ЗАПРОС ОБНОВЛЕНИЯ ДВОИЧНЫХ ДАННЫХ ИЗ ФАЙЛА (РЕДКО ИСПОЛЬЗУЕТСЯ)
+```JS
 var data = {
 	data	: {
 		user_family	: 'Иванов',
@@ -193,12 +232,16 @@ var data = {
 	},
 };
 model_users.query_update(data));
-Возвращает строку
------------------
-UPDATE users SET `user_family`='Иванов', `user_name`='Петр', ? WHERE `user_id` IN ('1', '2', '3');
------------------
+```
+###Возвращает строку
+```
+UPDATE users SET `user_family`='Иванов', `user_name`='Петр', ? 
+WHERE `user_id` IN ('1', '2', '3');
+```
 
-ЗАПРОС ОБНОВЛЕНИЯ ПОЛЯ В ЗАВИСИМОСТИ ОТ ЗНАЧЕНИЯ В ДРУГОМ ПОЛЕ (РЕДКО ИСПОЛЬЗУЕТСЯ)
+
+###ЗАПРОС ОБНОВЛЕНИЯ ПОЛЯ В ЗАВИСИМОСТИ ОТ ЗНАЧЕНИЯ В ДРУГОМ ПОЛЕ (РЕДКО ИСПОЛЬЗУЕТСЯ)
+```JS
 var data = {
 	data	: {
 		user_profi	: {
@@ -217,12 +260,17 @@ var data = {
 	},
 };
 model_users.query_update(data));
-Возвращает строку
------------------
-UPDATE users SET `user_profi` = CASE `user_code` WHEN 'A 01' THEN 'Инженер-электрик' WHEN 'B 11 3' THEN 'Слесарь-сантехник 3 категории' WHEN 'A 02' THEN 'Инженер-конструктор' WHEN 'С' THEN 'Разнорабочий' ELSE `user_profi` END WHERE `user_id` IN ('1', '2', '3');
------------------
+```
+###Возвращает строку
+```
+UPDATE users SET `user_profi` = CASE `user_code` WHEN 'A 01' THEN 'Инженер-электрик' 
+WHEN 'B 11 3' THEN 'Слесарь-сантехник 3 категории' WHEN 'A 02' THEN 'Инженер-конструктор' 
+WHEN 'С' THEN 'Разнорабочий' ELSE `user_profi` END WHERE `user_id` IN ('1', '2', '3');
+```
 
-ЗАПРОС УДАЛЕНИЯ СТРОК
+
+###ЗАПРОС УДАЛЕНИЯ СТРОК
+```JS
 var data = {
 	where	: {
 		user_family	: 'Иванов',
@@ -233,17 +281,18 @@ var data = {
 	},
 };
 model_users.query_delete(data));
-Возвращает строку
------------------
+```
+###Возвращает строку
+```
 DELETE FROM users WHERE `user_family`='Иванов' AND `user_age`>'25' AND `user_id` IN ('1', '2', '3');
------------------
 ```
+
 ## Пример серверного кода для проверки работоспособности расположен в директории "_demo"
-## Запуск
+### Запуск тестов
 ```
-	node server
+node server
 ```
-## Результат
+### Результат
 ```
-	http://localhost:2020
+http://localhost:2020
 ```
