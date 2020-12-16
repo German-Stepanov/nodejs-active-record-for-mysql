@@ -1,10 +1,13 @@
 {
   "name": "active-record-for-mysql",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "MySQL active-record query builder for nodejs",
   "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"demo": "cd _demo && node server"
   },
   "repository": {
     "type": "git",

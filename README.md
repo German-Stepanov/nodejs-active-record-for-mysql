@@ -2,12 +2,12 @@
 Динамическое создание запросов в базу данных MySQL для nodejs
 ```
 Используется для динамического формирования наиболее популярных запросов в БД MySQL
-	CREATE	- создание таблицы
-	DROP	- удаление таблицы
-	INSERT	- добавление записи
-	UPDATE	- обновление записей
-	DELETE	- удаление записей
-	SELECT	- получение записей
+CREATE	- создание таблицы
+DROP	- удаление таблицы
+INSERT	- добавление записи
+UPDATE	- обновление записей
+DELETE	- удаление записей
+SELECT	- получение записей
 ```
 ## Пример подключения
 ```JS
@@ -51,11 +51,7 @@ var model_users = new (require('active-record-for-mysql'))({
 model_users.query_create();
 ```
 ```MYSQL
-CREATE TABLE IF NOT EXISTS `users` (
-`user_id` int(11) NOT NULL AUTO_INCREMENT,
-`user_name` varchar(100) NOT NULL,`user_family` varchar(100) NOT NULL,
-`user_city_id` int(11) NOT NULL,
-PRIMARY KEY (`user_id`)) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `users` ( `user_id` int(11) NOT NULL AUTO_INCREMENT, `user_name` varchar(100) NOT NULL,`user_family` varchar(100) NOT NULL, `user_city_id` int(11) NOT NULL, PRIMARY KEY (`user_id`)) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 ```
 
 
@@ -122,9 +118,7 @@ var data = {
 model_users.query_select(data)
 ```
 ```MYSQL
-SELECT `user_id`, `user_name`, `user_family` FROM users 
-WHERE `user_family`='Иванов' AND `user_name`!='Петр' OR `user_name`!='Вася' 
-AND `user_id` IN ('1', '2', '3') AND `user_profi` IN ('Сантехник', 'Электрик', 'Дворник');
+SELECT `user_id`, `user_name`, `user_family` FROM users WHERE `user_family`='Иванов' AND `user_name`!='Петр' OR `user_name`!='Вася' AND `user_id` IN ('1', '2', '3') AND `user_profi` IN ('Сантехник', 'Электрик', 'Дворник');
 ```
 
 
@@ -147,9 +141,7 @@ var data = {
 model_users.query_select(data));
 ```
 ```MYSQL
-SELECT `user_name`, `user_family` FROM users 
-WHERE `user_family` LIKE '%Ива%' AND `user_name` LIKE 'etr%' 
-GROUP BY user_name, user_family ORDER BY `user_family` ASC, `user_age` DESC LIMIT 5,  10;
+SELECT `user_name`, `user_family` FROM users WHERE `user_family` LIKE '%Ива%' AND `user_name` LIKE 'etr%' GROUP BY user_name, user_family ORDER BY `user_family` ASC, `user_age` DESC LIMIT 5, 10;
 ```
 
 
@@ -206,9 +198,7 @@ var data = {
 model_users.query_update(data));
 ```
 ```MYSQL
-UPDATE users SET `user_family`='Иванов', `user_name`='Петр' 
-WHERE `user_family`='Петров' AND `user_name`='Иван' AND `user_id` 
-IN ('1', '2', '3') AND `user_family` LIKE '%Ива%' AND `user_name` LIKE 'etr%';
+UPDATE users SET `user_family`='Иванов', `user_name`='Петр' WHERE `user_family`='Петров' AND `user_name`='Иван' AND `user_id` IN ('1', '2', '3') AND `user_family` LIKE '%Ива%' AND `user_name` LIKE 'etr%';
 ```
 
 
@@ -227,8 +217,7 @@ var data = {
 model_users.query_update(data));
 ```
 ```MYSQL
-UPDATE users SET `user_family`='Иванов', `user_name`='Петр', ? 
-WHERE `user_id` IN ('1', '2', '3');
+UPDATE users SET `user_family`='Иванов', `user_name`='Петр', ? WHERE `user_id` IN ('1', '2', '3');
 ```
 
 
@@ -254,9 +243,7 @@ var data = {
 model_users.query_update(data));
 ```
 ```MYSQL
-UPDATE users SET `user_profi` = CASE `user_code` WHEN 'A 01' THEN 'Инженер-электрик' 
-WHEN 'B 11 3' THEN 'Слесарь-сантехник 3 категории' WHEN 'A 02' THEN 'Инженер-конструктор' 
-WHEN 'С' THEN 'Разнорабочий' ELSE `user_profi` END WHERE `user_id` IN ('1', '2', '3');
+UPDATE users SET `user_profi` = CASE `user_code` WHEN 'A 01' THEN 'Инженер-электрик' WHEN 'B 11 3' THEN 'Слесарь-сантехник 3 категории' WHEN 'A 02' THEN 'Инженер-конструктор' WHEN 'С' THEN 'Разнорабочий' ELSE `user_profi` END WHERE `user_id` IN ('1', '2', '3');
 ```
 
 
